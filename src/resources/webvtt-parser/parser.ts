@@ -8,30 +8,30 @@ export function parseWebVTT(text: string): WebVTTCue[] {
   text = text.replace(/(\r\n|\n|\r)/g, '\n');
   text = text.replace('(', '- ');
   text = text.replace(')', ' -');
-  
+
   // tokenize
   let tokens = text.split('\n');
 
   // shave off some fat
-  const exlusions = ['WEBVTT', '']
-  tokens = tokens.filter(t => !exlusions.includes(t));
+  const exlusions = ['WEBVTT', ''];
+  tokens = tokens.filter((t) => !exlusions.includes(t));
 
   // create cues
   const cues: WebVTTCue[] = [];
   let currentCue: WebVTTCue | undefined = undefined;
   let consumingCueText = false;
-  for(const token of tokens) {
+  for (const token of tokens) {
     if (token.includes('-->')) {
       if (currentCue !== undefined) {
         cues.push(currentCue);
       }
 
       const split = token.split('-->');
-      split.forEach(s => s.trim());
+      split.forEach((s) => s.trim());
       currentCue = {
         startTime: convertTimeString(split[0]),
         endTime: convertTimeString(split[1]),
-        text: []
+        text: [],
       };
       consumingCueText = true;
       continue;

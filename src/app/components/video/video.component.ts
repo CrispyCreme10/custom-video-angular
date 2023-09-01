@@ -38,7 +38,7 @@ export class VideoComponent implements OnInit, AfterViewInit {
     }).subscribe(data => {
       // console.log(data);
       this.cues = parseWebVTT(data);
-      // console.log(this.cues);
+      console.log(this.cues);
     })
   }
 }

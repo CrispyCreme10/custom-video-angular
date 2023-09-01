@@ -1,3 +1,8 @@
 <video src="//samplelib.com/lib/preview/mp4/sample-30s.mp4" controls controlsList="nodownload">
   <track #track default kind="captions" srclang="en" [src]="transcriptUrl" />
 </video>
+<div class="transcript-container">
+  <div class="cue" *ngFor="let cue of cues">
+    <span class="text" *ngFor="let text of cue?.text">{{text}} </span>
+  </div>
+</div>
