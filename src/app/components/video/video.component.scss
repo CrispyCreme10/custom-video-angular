@@ -5,6 +5,11 @@
   height: 720px;
 }
 
+.video-container {
+  position: relative;
+  width: 1280px;
+}
+
 video {
   width: 1280px;
   aspect-ratio: 16 / 9;
@@ -12,6 +17,52 @@ video {
 
 video::cue {
   font-size: 1.5rem;
+}
+
+.video-controls {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  display: none; /* shown dynamically based on browser */
+  width: 100%;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+  padding: 5px 0;
+  background-color: rgba(0, 0, 0, 0.4);
+}
+
+.video-controls > .progress-bar {
+  width: 98%;
+}
+
+.progress-line {
+  height: 4px;
+}
+
+.progress-bar {
+  position: relative;
+  background-color: rgba(128, 128, 128, 0.75);
+  width: 100%;
+}
+
+.progress-buffer {
+  position: absolute;
+  background-color: lightgrey;
+}
+
+.progress-fill {
+  position: absolute;
+  background-color: red;
+}
+
+.bottom-controls {
+  width: 98%;
+}
+
+.bottom-controls > button {
+  background: none;
+  border: none;
 }
 
 .transcript-container {
