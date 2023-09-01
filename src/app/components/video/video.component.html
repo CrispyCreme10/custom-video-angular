@@ -3,6 +3,7 @@
     <track #track default kind="captions" srclang="en" [src]="transcriptUrl" />
   </video>
   <div #videoControls class="video-controls">
+    <!-- TODO: Buffer Animation -->
     <div class="progress-bar progress-line">
       <div class="progress-buffer progress-line"></div>
       <div class="progress-fill progress-line"></div>
@@ -13,25 +14,28 @@
       </div>
     </div>
     <!-- 
-      Progress Bar
-      Play/Pause
-      Rewind (5s)
-      Fast Forward (5s)
-      Previous Video (only for playlists? or maybe some type of multi-video setup)
-      Next Video (only for playlists? or maybe some type of multi-video setup)
-      Volume/Mute
-      Current Video Time / Total Video Time
-      Auto Play (only for playlists? or maybe some type of multi-video setup)
-      Closed Captions
-      Settings (pops menu with multiple items)
-      Picture-in-Picture
-      Default/Long View
-      Full Screen View
+      COMPLETE: Progress Bar
+      COMPLETE: Play/Pause
+      TODO: Restart
+      TODO: Rewind (5s)
+      TODO: Fast Forward (5s)
+      TODO: Previous Video (only for playlists? or maybe some type of multi-video setup)
+      TODO: Next Video (only for playlists? or maybe some type of multi-video setup)
+      TODO: Volume/Mute
+      TODO: Current Video Time / Total Video Time
+      TODO: Auto Play (only for playlists? or maybe some type of multi-video setup)
+      TODO: Closed Captions
+      TODO: Settings (pops menu with multiple items)
+      TODO: Picture-in-Picture
+      TODO: Default/Long View
+      TODO: Full Screen View
      -->
   </div>
 </div>
 <div class="transcript-container">
   <div class="cue" *ngFor="let cue of cues">
-    <span class="text" *ngFor="let text of cue?.text">{{text}} </span>
+    <div *ngFor="let text of cue?.text">
+      <span class="text">{{text}} </span>
+    </div>
   </div>
 </div>

@@ -16,6 +16,7 @@ export class VideoComponent implements OnInit, AfterViewInit {
 
   transcriptUrl = 'assets/test.vtt';
   cues: WebVTTCue[] = [];
+  activeCuesMap: { [key: number]: boolean } = {};
 
   // icons
   faPlay = faPlay;
@@ -62,6 +63,12 @@ export class VideoComponent implements OnInit, AfterViewInit {
       responseType: 'text'
     }).subscribe(data => {
       this.cues = parseWebVTT(data);
+      for (let i = 0; i < this.cues?.length; i++) {
+        this.activeCuesMap = {
+          ...this.activeCuesMap,
+          [i]: false
+        } 
+      }
       console.log(this.cues);
     })
   }
