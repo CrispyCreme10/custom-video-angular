@@ -19,6 +19,16 @@ video::cue {
   font-size: 1.5rem;
 }
 
+.video-controls-gradient {
+  position: absolute;
+  height: 30%;
+  width: 100%;
+  bottom: 0;
+  background: rgb(0,0,0);
+  background: linear-gradient(0deg, rgba(0,0,0,0.5) 0%, rgba(255,255,255,0) 100%);
+  pointer-events: none;
+}
+
 .video-controls {
   position: absolute;
   bottom: 0;
@@ -27,17 +37,45 @@ video::cue {
   width: 100%;
   flex-direction: column;
   align-items: center;
-  gap: 5px;
-  padding: 5px 0;
-  background-color: rgba(0, 0, 0, 0.4);
+  background-color: transparent;
+  transition: all ease-in-out 250ms;
 }
 
 .video-controls > .progress-bar {
   width: 98%;
 }
 
+.control {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 48px;
+  max-height: 48px;
+  min-width: 48px;
+  cursor: pointer;
+}
+
 .progress-line {
-  height: 4px;
+  height: 3px;
+}
+
+.progress-line:hover, .progress-line:hover > .progress-line {
+  height: 5px;
+  cursor: pointer;
+}
+
+.progress-line:hover > .progress-fill::after {
+  content: '';
+  display: inline-block;
+  width: 13px;
+  height: 13px;
+  -moz-border-radius: 6.5px;
+  -webkit-border-radius: 6.5px;
+  border-radius: 6.5px;
+  background-color: red;
+  position: absolute;
+  right: -8px;
+  top: -5px;
 }
 
 .progress-bar {
@@ -51,18 +89,69 @@ video::cue {
   background-color: lightgrey;
 }
 
+.progress-hover {
+  position: absolute;
+  background-color: rgba(245, 245, 245, 0.5);
+}
+
+.progress-hover-padding {
+  position: absolute;
+  width: 100%;
+  height: 16px;
+  bottom: 0;
+  z-index: 1;
+}
+
 .progress-fill {
   position: absolute;
   background-color: red;
 }
 
 .bottom-controls {
+  display: flex;
+  justify-content: space-between;
+  color: white;
   width: 98%;
 }
 
 .bottom-controls > button {
   background: none;
   border: none;
+}
+
+.left-controls {
+  display: flex;
+  align-items: center;
+}
+
+.volume-container {
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  min-width: 48px;
+  max-width: 100px;
+  transition: width ease-in-out 300ms;
+}
+
+.volume-slider {
+  position: absolute;
+  top: 14px;
+  left: 48px;
+  min-width: 50px;
+  max-width: 50px;
+  background: transparent;
+  cursor: pointer;
+}
+
+.duration {
+  font-size: 0.875rem;
+  padding: 0 10px;
+  cursor: text;
+}
+
+.right-controls {
+  display: flex;
+  align-items: center;
 }
 
 .transcript-container {
@@ -85,4 +174,15 @@ video::cue {
 
 .text.active {
   background-color: yellow;
+}
+
+// TOOLTIPS
+.tooltip {
+  position: absolute;
+  display: none;
+  padding: 8px;
+  background-color: rgba(0, 0, 0, 0.3);
+  color: white;
+  border-radius: 5px;
+  font-size: 0.875rem;
 }

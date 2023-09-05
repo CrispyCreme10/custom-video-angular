@@ -1,16 +1,60 @@
 <div class="video-container">
-  <video #video src="//samplelib.com/lib/preview/mp4/sample-30s.mp4" controls controlsList="nodownload">
+  <video #video src="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4" controls controlsList="nodownload">
     <track #track default kind="captions" srclang="en" [src]="transcriptUrl" />
   </video>
-  <div #videoControls class="video-controls">
+  <div class="video-controls-gradient" 
+    [style.display]="areControlsVisible ? 'block' : 'none'"></div>
+  <div #videoControls class="video-controls"
+    [style.display]="areControlsVisible ? 'block' : 'none'">
     <!-- TODO: Buffer Animation -->
-    <div class="progress-bar progress-line">
-      <div class="progress-buffer progress-line"></div>
-      <div class="progress-fill progress-line"></div>
+    <div #progressBar class="progress-bar progress-line">
+      <div #progressBuffer class="progress-buffer progress-line"></div>
+      <div #progressHover class="progress-hover progress-line"></div>
+      <div #progressHoverPadding 
+        class="progress-hover-padding"
+        (mousedown)="onProgressHoverMouseDown($event)"
+        (mouseup)="onProgressHoverMouseUp($event)"></div>
+      <div #progressFill class="progress-fill progress-line"></div>
     </div>
     <div class="bottom-controls">
-      <div #playPause id="playpause">
-        <fa-icon [icon]="faPlay" style="color: white;"></fa-icon>
+      <div class="left-controls">
+        <div #playPause class="playpause control">
+          <fa-icon [icon]="isPlaying ? faPause : faPlay" size="lg"></fa-icon>
+        </div>
+        <div #volumeContainer 
+          class="volume-container" 
+          [style.width]="showVolumeSlider ? '100px' : '48px'" >
+          <div #volume class="volume control" (click)="toggleMuted()">
+            <fa-icon [icon]="isMuted ? faVolumeXMark : isVolumeHigh ? faVolumeHigh : faVolumeLow" size="lg"></fa-icon>
+          </div>
+          <input #volumeSlider 
+            class="volume-slider" 
+            type="range"
+            min="0"
+            max="100"
+            step="1"
+            [value]="volumeValue" />
+        </div>
+        <span #duration class="duration control">
+          {{ currentVideoTime}} / {{ totalVideoTime }}
+        </span>
+      </div>
+      <div class="right-controls">
+        <div class="autoplay control" (click)="toggleAutoPlay()">
+          <fa-icon [icon]="isAutoPlayOn ? faCirclePlaySolid : faCirclePlayRegular" size="lg"></fa-icon>
+        </div>
+        <div class="closed-caption control" (click)="toggleClosedCaption()">
+          <fa-icon [icon]="isClosedCaptionOn ? faClosedCaptionSolid : faClosedCaptionRegular" size="lg"></fa-icon>
+        </div>
+        <div class="settings control">
+          <fa-icon [icon]="faGear" size="lg"></fa-icon>
+        </div>
+        <div class="adj-view control">
+          <fa-icon [icon]="isLargeAdjViewMode ? faMinimize : faMaximize" size="lg"></fa-icon>
+        </div>
+        <div class="fullscreen control">
+          <fa-icon [icon]="faExpand" size="lg"></fa-icon>
+        </div>
       </div>
     </div>
     <!-- 
@@ -38,4 +82,9 @@
       <span class="text">{{text}} </span>
     </div>
   </div>
+</div>
+
+<!-- control tooltips -->
+<div #tooltip class="tooltip">
+  <span></span>
 </div>
